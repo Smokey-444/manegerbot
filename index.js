@@ -1,25 +1,18 @@
 const Discord = require('discord.js')
-const bot = new Discord.Client({
-    partials: ["MESSAGE", "CHANNEL", "REACTION"],
-    restTimeOffset: 0
-})
-const TOKEN = '';
-require('discord-buttons')(bot)
-const { MessageButton, MessageActionRow } = require('discord-buttons')
-const prefix = 't!'
+const bot = new Discord.Client()
 
 bot.on('ready', () => {
     console.log('Der Bot ist nun Online!')
 
     bot.user.setPresence({
         activity: {
-            name: 't!help',
+            name: ' 👑Max sein Server👑',
             type: 'PLAYING',
         }
     })
 })
 
-bot.on('message', async message => {
+bot.on('message', message => {
     let parts = message.content.split(" ");
 
     if(parts[0] == 'help') {
@@ -78,134 +71,6 @@ bot.on('message', async message => {
 
         message.channel.send(embed)
     }
-    else if(parts[0].toLowerCase() == `t!rrtest`) {
-        let sendMessage = await message.channel.send('Reagiere mit \:Nike: um die 【👨】┃Verifiziert┃Rolle zu bekommen!')
-        sendMessage.react('emojiName')
-    }
-
 })
-
-bot.on('messageReactionAdd', async (reaction, user, channel) => {
-    if(reaction.message.partial) await reaction.message.fetch();
-    if(reaction.partial) await reaction.fetch();
-
-    if(user.bot) return;
-    if(!reaction.message.guild) return;
-
-    if(reaction.message.channel.id === '856916241011703869') {
-        if(reaction.emoji.name === '490e1b5de5924518bd81ae37c3059f13') {
-            reaction.message.guild.members.cache.get(user.id).roles.add('856916240475488270')
-        }
-    }
-})
-
-bot.on('messageReactionRemove', async (reaction, user, channel) => {
-    if(reaction.message.partial) await reaction.message.fetch();
-    if(reaction.partial) await reaction.fetch();
-
-    if(user.bot) return;
-    if(!reaction.message.guild) return;
-
-    if(reaction.message.channel.id === '856916241011703869') {
-        if(reaction.emoji.name === '490e1b5de5924518bd81ae37c3059f13') {
-            reaction.message.guild.members.cache.get(user.id).roles.remove('856916240475488270')
-        }
-    }
-})
-
-bot.on('message', async message => {
-    let parts = message.content.split(" ");
-
-    if(parts[0].toLowerCase() == 't!buttontest') {
-        const embed = new Discord.MessageEmbed()
-        .setColor('69e3e2')
-        .setTitle('Test')
-        .setDescription('Dies ist ein Testembed')
-
-        const greenButton = new MessageButton()
-        .setLabel('Grün')
-        .setStyle('green')
-        .setEmoji('EmojiID')
-        .setID('green')
-
-        const redButton = new MessageButton()
-        .setLabel('Rot')
-        .setStyle('red')
-        .setEmoji('EmojiID')
-        .setID('red')
-
-        const blurpleButton = new MessageButton()
-        .setLabel('Blau')
-        .setStyle('blurple')
-        .setEmoji('EmojiID')
-        .setID('blurple')
-
-        const greyButton = new MessageButton()
-        .setLabel('Grau')
-        .setStyle('grey')
-        .setEmoji('EmojiID')
-        .setID('grey')
-
-        const urlButton = new MessageButton()
-        .setLabel('URL')
-        .setStyle('url')
-        .setEmoji('EmojiID')
-        .setURL('https://dsc.gg/hello!')
-
-        const row1 = new MessageActionRow()
-        .addComponent(greenButton)
-        .addComponent(redButton)
-        .addComponent(blurpleButton)
-
-        const row2 = new MessageActionRow()
-        .addComponent(greyButton)
-        .addComponent(urlButton)
-
-        message.channel.send({
-            embed: embed,
-            components: [row1, row2]
-        })
-    }
-})
-
-bot.on('clickButton', async (button) => {
-    if(button.id === `green`) {
-        const embed = new Discord.MessageEmbed()
-        .setDescription('Der Knopf mit der grünen Farbe wurde geklickt!')
-
-        button.clicker.member.roles.add('rollenID')
-
-        button.message.edit({
-            embed: embed
-        })
-    }
-    else if(button.id === 'red') {
-        const embed = new Discord.MessageEmbed()
-        .setDescription('Der Knopf mit der roten Farbe wurde geklickt!')
-
-        button.clicker.member.roles.remove('rollenID')
-
-        button.message.edit({
-            embed: embed
-        })
-    }
-    else if(button.id === 'blurple') {
-        const embed = new Discord.MessageEmbed()
-        .setDescription('Der Knopf mit der blauen Farbe wurde geklickt!')
-
-        button.message.edit({
-            embed: embed
-        })
-    }
-    else if(button.id === 'grey') {
-        const embed = new Discord.MessageEmbed()
-        .setDescription('Der Knopf mit der grauen Farbe wurde geklickt!')
-
-        button.message.edit({
-            embed: embed
-        })
-    }
-})
-
 
 bot.login(process.env.token)
