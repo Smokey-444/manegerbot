@@ -12,7 +12,7 @@ bot.on('ready', () => {
     })
 })
 
-bot.on('message', message => {
+ot.on('message', async message => {
     let parts = message.content.split(" ");
 
     if(parts[0] == 'help') {
@@ -71,6 +71,40 @@ bot.on('message', message => {
 
         message.channel.send(embed)
     }
+    else if(parts[0].toLowerCase() == `t!rrtest`) {
+        let sendMessage = await message.channel.send('Reagiere mit \:Nike: um die 【👨】┃Verifiziert┃Rolle zu bekommen!')
+        sendMessage.react('emojiName')
+    }
+
 })
+
+bot.on('messageReactionAdd', async (reaction, user, channel) => {
+    if(reaction.message.partial) await reaction.message.fetch();
+    if(reaction.partial) await reaction.fetch();
+
+    if(user.bot) return;
+    if(!reaction.message.guild) return;
+
+    if(reaction.message.channel.id === '856916241011703869') {
+        if(reaction.emoji.name === '490e1b5de5924518bd81ae37c3059f13') {
+            reaction.message.guild.members.cache.get(user.id).roles.add('856916240475488270')
+        }
+    }
+})
+
+bot.on('messageReactionRemove', async (reaction, user, channel) => {
+    if(reaction.message.partial) await reaction.message.fetch();
+    if(reaction.partial) await reaction.fetch();
+
+    if(user.bot) return;
+    if(!reaction.message.guild) return;
+
+    if(reaction.message.channel.id === '856916241011703869') {
+        if(reaction.emoji.name === '490e1b5de5924518bd81ae37c3059f13') {
+            reaction.message.guild.members.cache.get(user.id).roles.remove('856916240475488270')
+        }
+    }
+})
+
 
 bot.login(process.env.token)
