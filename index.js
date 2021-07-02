@@ -6,7 +6,7 @@ bot.on('ready', () => {
 
     bot.user.setPresence({
         activity: {
-            name: 'Manager',
+            name: 'auf 👑Max sein Server👑',
             type: 'PLAYING',
         }
     })
