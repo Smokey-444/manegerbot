@@ -33,9 +33,6 @@ bot.on('message', message => {
     else if(parts[0] == 't!owner') {
         message.channel.send(`Der Owner vom **${message.guild.name}**-Server ist **${message.guild.owner.user.tag}**`)
     }
-    if(message === '!dc' || message === '!Dc' || message === 'dc' || message === 'dc') {
-        client.action('lemaxxxxxxx', `Hier der discord link, https://discord.gg/yQhVk6dwWn}`)
-    }
     else if(parts[0] == 't!userinfo') {
 
         const guild = message.guild
