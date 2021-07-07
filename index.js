@@ -9,7 +9,7 @@ bot.on('ready', () => {
 
     bot.user.setPresence({
         activity: {
-            name: ' 👑Max sein Server👑',
+            name: 't!help',
             type: 'PLAYING',
         }
     })
@@ -74,6 +74,7 @@ bot.on('message', message => {
 
         message.channel.send(embed)
     }
+
 })
 
 bot.on('message', async message => {
